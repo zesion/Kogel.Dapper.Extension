@@ -256,10 +256,10 @@ namespace Kogel.Dapper.Extension.Expressions
                                 var filed = (node.Arguments[0] as MemberExpression).Member.Name;
                                 var type = (node.Arguments[0] as MemberExpression).Expression.Type;
                                 var member = EntityCache.QueryEntity(type);
-                                var prefix = member.AsName;
+                                var paramName = member.AsName;
                                 filed = member.FieldPairs[filed];
-                                var param = $"@{prefix}_{filed}_{Param.ParameterNames.Count()}";
-                                this.SpliceField.Append($"{prefix}.{filed} IN {param}");
+                                var param = $"{providerOption.ParameterPrefix}{paramName}_{filed}_{Param.ParameterNames.Count()}";
+                                this.SpliceField.Append($"{paramName}.{filed} IN {param}");
                                 var value = GetValue(node.Object);
                                 Param.Add(param, value);
                             }
@@ -268,10 +268,10 @@ namespace Kogel.Dapper.Extension.Expressions
                                 var filed = (node.Arguments[1] as MemberExpression).Member.Name;
                                 var type = (node.Arguments[1] as MemberExpression).Expression.Type;
                                 var member = EntityCache.QueryEntity(type);
-                                var prefix = member.AsName;
+                                var paramName = member.AsName;
                                 filed = member.FieldPairs[filed];
-                                var param = $"@{prefix}_{filed}_{Param.ParameterNames.Count()}";
-                                this.SpliceField.Append($"{prefix}.{filed} IN {param}");
+                                var param = $"{providerOption.ParameterPrefix}{paramName}_{filed}_{Param.ParameterNames.Count()}";
+                                this.SpliceField.Append($"{paramName}.{filed} IN {param}");
                                 var value = GetValue(node.Arguments[0]);
                                 Param.Add(param, value);
                             }
